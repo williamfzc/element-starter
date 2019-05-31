@@ -1,52 +1,32 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <el-button @click="pingBaidu">Ping</el-button>
-    </div>
+    <el-container>
+      <el-aside>
+        <sideBar/>
+      </el-aside>
+
+      <el-container>
+        <el-header>
+          <topBar/>
+        </el-header>
+
+        <el-main>
+          <router-view/>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    pingBaidu () {
-      // this.$http == axios
-      // https://www.kancloud.cn/yunye/axios/234845
-      this.$http.get('http://www.baidu.com')
-        .then((response) => {
-          let statusCode = response.status
+import TopBar from './components/TopBar.vue'
+import SideBar from './components/SideBar.vue'
 
-          if (statusCode == 200) {
-            this.$notify({
-              title: 'Ping works!',
-              type: 'success',
-              message: statusCode
-            })
-          } else {
-            this.$notify({
-              title: 'Ping failed!',
-              type: 'error',
-              message: statusCode
-            })
-          }
-        })
-        .catch(error => {
-          console.error(error)
-          this.$notify({
-            title: 'Ping error!',
-            type: 'error',
-            message: error
-          })
-        })
-    }
+export default {
+  components: {
+    topBar: TopBar,
+    sideBar: SideBar,
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Helvetica, sans-serif;
-  text-align: center;
-}
-</style>
